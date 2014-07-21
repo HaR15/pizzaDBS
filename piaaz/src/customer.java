@@ -7,7 +7,7 @@ public class customer {
 	private String password; 
 	private String name;
 	
-	public customer(String username, String password){
+	public customer(String username, String password) throws ClassNotFoundException{
 		this.username = username;
 		this.password = password;
 		Scanner input = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class customer {
 	                     break;
 	            case "2":  new product();
 	                     break;
-	            case "3":  new setting();
+	            case "3":  new setting(username);
 	                     break;
 	            case "4":  choose = "4";
 	                     break;

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class placeOrder {
-	public placeOrder(String username, String password){
+	public placeOrder(String username, String password) throws ClassNotFoundException{
 		// Setup scanner for inputs
 		Scanner input = new Scanner(System.in);
 		String choose = "";

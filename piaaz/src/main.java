@@ -4,8 +4,9 @@ public class main {
 
 	/**
 	 * @param args
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 		Scanner input = new Scanner(System.in);
 		String fillers = "================================";
 		System.out.println("Welcome to Rich and Ris' Pizzas!\n");
