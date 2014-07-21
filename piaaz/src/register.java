@@ -1,8 +1,8 @@
 import java.util.*;
 import java.sql.*;
+
+import mariadb.sqlcc;
 public class register {
-	private static final String dbClassName = "com.mysql.jdbc.Driver";
-	private static final String CONNECTION = "jdbc:mysql://localhost:3306/Customers";
 	private String username;
 	private String password;
 	private String name;
@@ -11,7 +11,7 @@ public class register {
 	private int age;
 	private int balance;
 	
-	public register() throws ClassNotFoundException{
+	public register() throws ClassNotFoundException, SQLException{
 		// Setup scanner for inputs
 		Scanner input = new Scanner(System.in);
 		String fillers = "================================";
@@ -90,52 +90,25 @@ public class register {
 		System.out.println("Taking you back now to the home menu");
 		System.out.println(fillers);
 		//Takes back to Home menu (in main() of main.java)
-		Class.forName(dbClassName);
-		//Database credentials
-		final String USER = "root";
-		final String PASS = "123";
-		try {
-			//Establish connection
-			Connection conn = DriverManager.getConnection(CONNECTION,USER,PASS);			
-			//Execute a query
-			Statement stmt = conn.createStatement();
+			commandLine.startSession();
 			String sql = "INSERT INTO customers (Active, name, addr, sex, age, balance, Username, Password) " +
 					"VALUES (1 , '"+this.name+"', '"+this.addr+"', '"+this.sex+"','"+this.age+"', '"+this.balance+"','"+this.username+"','"+this.password+"' );";
-			stmt.executeUpdate(sql);
-			
-			//STEP 5: Extract data from result set
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.err.println("Connection error occured!" + e);
-		}
+			commandLine.executeSession(sql,2);
+			commandLine.endSession();
 		main.main(null);
 	}
 	
-	private boolean userNameCheck() throws ClassNotFoundException {
+	private boolean userNameCheck() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		Class.forName(dbClassName);
-		//Database credentials
-		final String USER = "root";
-		final String PASS = "123";
-		try {
-			//Establish connection
-			Connection conn = DriverManager.getConnection(CONNECTION,USER,PASS);			
-			//Execute a query
-			Statement stmt = conn.createStatement();
+			commandLine.startSession();
 			String sql = "SELECT EXISTS(SELECT * FROM customers WHERE Username = '"+this.username+"' ) ";
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			if (rs.getString(1).equals("1")){
+			ArrayList<String> rs = commandLine.executeSession(sql,1);
+			commandLine.endSession();
+			if (rs.get(0).equals("1")){
 				return false;
 			}
 			//STEP 5: Extract data from result set
-			rs.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.err.println("Connection error occured!" + e);
-		}
+
 		return true;
 	}
 

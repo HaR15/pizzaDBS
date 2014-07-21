@@ -1,8 +1,9 @@
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
 public class placeOrder {
-	public placeOrder(String username, String password) throws ClassNotFoundException{
+	public placeOrder(String username, String password) throws ClassNotFoundException, SQLException{
 		// Setup scanner for inputs
 		Scanner input = new Scanner(System.in);
 		String choose = "";

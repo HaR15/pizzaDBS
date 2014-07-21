@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -7,7 +8,7 @@ public class customer {
 	private String password; 
 	private String name;
 	
-	public customer(String username, String password) throws ClassNotFoundException{
+	public customer(String username, String password) throws ClassNotFoundException, SQLException{
 		this.username = username;
 		this.password = password;
 		Scanner input = new Scanner(System.in);

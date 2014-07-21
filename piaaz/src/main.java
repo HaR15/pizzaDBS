@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.*;
 
 public class main {
@@ -5,8 +6,9 @@ public class main {
 	/**
 	 * @param args
 	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws ClassNotFoundException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Scanner input = new Scanner(System.in);
 		String fillers = "================================";
 		System.out.println("Welcome to Rich and Ris' Pizzas!\n");
