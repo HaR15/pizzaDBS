@@ -15,10 +15,11 @@ public class main {
 		System.out.println(fillers);
 		System.out.println("Choose an option (the number):");
 		System.out.println("(1) Login\n(2) Register");
+		System.out.println("(3) Admin");
 		System.out.println(fillers);
 		String loginOrRegister = input.nextLine();
 		// Keeps prompting for correct input if invalid given. 
-		while(!loginOrRegister.equals("1") && !loginOrRegister.equals("2")){
+		while(!loginOrRegister.equals("1") && !loginOrRegister.equals("2") && !loginOrRegister.equals("3")){
 			System.out.println("Incorrect input. Please try again!");
 			loginOrRegister = input.nextLine();
 		}
@@ -31,6 +32,9 @@ public class main {
 			// Proceed to register a user.
 			System.out.println(fillers);
 			new register();
+		}
+		if (loginOrRegister.equals("3")){
+			new admin();
 		}
 	}
 

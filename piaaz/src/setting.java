@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -23,27 +24,26 @@ public class setting {
 
 	private void options(String choose) throws ClassNotFoundException {
 		// TODO Auto-generated method stub
-		Class.forName(dbClassName);
-		//Database credentials
-		final String USER = "root";
-		final String PASS = "123";
-		try {
-			//Establish connection
-			Connection conn = DriverManager.getConnection(CONNECTION,USER,PASS);			
-			//Execute a query
-			String sql = "";
-			Statement stmt = conn.createStatement();
 			if (choose.equals("5")){
-				sql = "update customers set Active = 0 where Username = '"+this.username+"'";
-				stmt.executeUpdate(sql);
+				commandLine.startSession();
+				String sql = "update customers set Active = 0 where Username = '"+this.username+"'";
+				commandLine.executeSession(sql, 2);
+				commandLine.endSession();
+			}
+			if (choose.equals("2")){
+				new balance();
+				commandLine.startSession();
+				String sql = "select balance from customers where Username = '"+this.username+"';";
+				ArrayList<String> Data = commandLine.executeSession(sql, 1);
+				System.out.println(Data.get(0));
+				commandLine.endSession();
 			}
 			if (choose.equals("1")){
 				new update(this.username);
 			}
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.err.println("Connection error occured!" + e);
-		}
+			if (choose.equals("6")){
+				return;
+			}
+
 	}
 }

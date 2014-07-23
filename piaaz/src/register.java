@@ -9,7 +9,7 @@ public class register {
 	private String sex; 
 	private String addr;
 	private int age;
-	private int balance;
+	private int creditCardNum;
 	
 	public register() throws ClassNotFoundException, SQLException{
 		// Setup scanner for inputs
@@ -63,19 +63,19 @@ public class register {
 		this.addr = input.nextLine().toUpperCase();
 		this.addr = isEmpty(this.addr, input);
 		
-		String balance = "";
-		System.out.println("Enter your balance");
-		balance = input.nextLine().toUpperCase();
-		balance = isEmpty(balance, input);
+		String credit = "0";
+		System.out.println("Enter your credit card number(Can be blank for now, will be needed when adding balance or purchasing order");
+		credit = input.nextLine().toUpperCase();
+		credit = isEmpty(credit, input);
 		while (true){
 			try{
-				this.balance = Integer.parseInt(balance);
+				this.creditCardNum = Integer.parseInt(credit);
 				break;
 			}
 			catch (Exception e){
 				System.out.println("Please enter a correct balance");
-				balance = input.nextLine();
-				balance= isEmpty(balance, input);
+				credit = input.nextLine();
+				credit = isEmpty(credit, input);
 			}
 			
 		}
@@ -91,8 +91,8 @@ public class register {
 		System.out.println(fillers);
 		//Takes back to Home menu (in main() of main.java)
 			commandLine.startSession();
-			String sql = "INSERT INTO customers (Active, name, addr, sex, age, balance, Username, Password) " +
-					"VALUES (1 , '"+this.name+"', '"+this.addr+"', '"+this.sex+"','"+this.age+"', '"+this.balance+"','"+this.username+"','"+this.password+"' );";
+			String sql = "INSERT INTO customers (Active, name, addr, sex, age, balance, Username, Password, credit) " +
+					"VALUES (1 , '"+this.name+"', '"+this.addr+"', '"+this.sex+"','"+this.age+"', '0','"+this.username+"','"+this.password+"', '"+this.creditCardNum+"' );";
 			commandLine.executeSession(sql,2);
 			commandLine.endSession();
 		main.main(null);
