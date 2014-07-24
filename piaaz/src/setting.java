@@ -11,7 +11,7 @@ public class setting {
 		while (! choose.equals("6")){
 			System.out.println("1, Update");
 			System.out.println("2, Account Balance");
-			System.out.println("3, Orders");
+			System.out.println("3, Delivery time");
 			System.out.println("4, Transaction History");
 			System.out.println("5, Deactivate");
 			System.out.println("6,Back");
