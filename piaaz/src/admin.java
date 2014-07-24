@@ -22,9 +22,6 @@ public class admin {
 				if (choose.equals("2")){
 					deleteold();
 				}
-				if (choose.equals("5")){
-					return;
-				}
 				if (choose.equals("3")){
 					addsp();
 				}

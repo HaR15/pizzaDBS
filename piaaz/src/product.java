@@ -18,6 +18,7 @@ public class product {
 			if (choose.equals("2")){
 				onSale();
 			}
+
 		}
 		
 	}

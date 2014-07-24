@@ -66,7 +66,6 @@ public class register {
 		String credit = "0";
 		System.out.println("Enter your credit card number(Can be blank for now, will be needed when adding balance or purchasing order");
 		credit = input.nextLine().toUpperCase();
-		credit = isEmpty(credit, input);
 		while (true){
 			try{
 				this.creditCardNum = Integer.parseInt(credit);
@@ -91,8 +90,8 @@ public class register {
 		System.out.println(fillers);
 		//Takes back to Home menu (in main() of main.java)
 			commandLine.startSession();
-			String sql = "INSERT INTO customers (Active, name, addr, sex, age, balance, Username, Password, credit) " +
-					"VALUES (1 , '"+this.name+"', '"+this.addr+"', '"+this.sex+"','"+this.age+"', '0','"+this.username+"','"+this.password+"', '"+this.creditCardNum+"' );";
+			String sql = "INSERT INTO customers (Active, name, addr, sex, age, balance, Username, Password, creditCardNum) " +
+					"VALUES (1 , '"+this.name+"', '"+this.addr+"', '"+this.sex+"','"+this.age+"', 0,'"+this.username+"','"+this.password+"', '"+this.creditCardNum+"' );";
 			commandLine.executeSession(sql,2);
 			commandLine.endSession();
 		main.main(null);
