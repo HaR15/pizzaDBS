@@ -65,7 +65,7 @@ public class pizza {
 		//Take user back to customer screen
 		return tid;
 	}
-	public static void topping(int total, String username, String pizza, String pizzaOID){
+	public static void topping(int total, String username, String pizza, String OID){
 		// Get all the toppings in the database
 		String sql = "select name from product where category = 'topping'";
 		commandLine.startSession();
@@ -113,7 +113,7 @@ public class pizza {
 				// The topping has been used before in this transaction
 				
 				// Check to see if this topping has already been used on the same pizza
-				sql = "select exists(select * from `toppingOrder` where tid = '"+tid+"' and pizzaOID = '"+pizzaOID+"' and toppingoID='"+pid+"');";
+				sql = "select exists(select * from `toppingOrder` where tid = '"+tid+"' and OID = '"+OID+"' and toppingoID='"+pid+"');";
 				String check2 = commandLine.executeSession(sql, 1).get(0);
 				
 				if(check2.equals("1")){
@@ -137,7 +137,7 @@ public class pizza {
 					String oid = userOids.get(userOids.size()-1);
 					
 					//Insert this order details in toppingOrder along with oid
-					sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pID) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"');";
+					sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pID) VALUES ('"+oid+"','"+tid+"','"+OID+"','"+pid+"');";
 				}
 				commandLine.executeSession(sql, 2);
 			}
@@ -154,7 +154,7 @@ public class pizza {
 				String oid = userOids.get(userOids.size()-1);
 				
 				// Insert info about this order in toppingOrder table, including oid
-				sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pid) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"');";
+				sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pid) VALUES ('"+oid+"','"+tid+"','"+OID+"','"+pid+"');";
 				commandLine.executeSession(sql, 2);
 			}
 			//Execute query

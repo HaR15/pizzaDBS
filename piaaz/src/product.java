@@ -9,7 +9,6 @@ public class product {
 		while (! choose.equals("4")){
 			System.out.println("1, Get info about a product");
 			System.out.println("2, On sale items");
-			System.out.println("3, View Cart");
 			System.out.println("4, Back");
 			choose = input.nextLine();
 			if (choose.equals("1")){
@@ -23,19 +22,26 @@ public class product {
 		
 	}
 	public void info(){
-		Scanner input = new Scanner(System.in);
-		System.out.println("Type the name of your product:");
-		String choose = input.nextLine();
-		String sql = "Select description from product where name = '"+choose+"';";
-		commandLine.startSession();
-		ArrayList<String> data = commandLine.executeSession(sql, 1);
-		commandLine.endSession();
-		if (data.size() == 0){
-			System.out.println("The product does not exist");
-		}
-		else{
-			System.out.println(data.get(0));
-		}
+			Scanner input = new Scanner(System.in);
+			String choose = "select name from product where ";
+			String[] data = {"name","category","price","supplier","manufacturer","description"};
+			for (int a=0;a< data.length;a++){
+				System.out.println("Enter the "+data[a]+" of the product");
+				String in = input.nextLine();
+				if (!in.isEmpty()){
+						choose = choose + data[a]+" = '"+ in + "'";
+					}
+				}	
+			if (choose.endsWith(",")){
+				choose = choose.substring(0,choose.length()-1) + ";";
+			}
+			else{
+				choose = choose + ";";
+			}
+			System.out.println(choose);
+			commandLine.startSession();
+			ArrayList<String> info = commandLine.executeSession(choose, 1);
+			commandLine.endSession();
 	}
 	public void onSale(){
 		String sql = "Select name from product where special = 1";

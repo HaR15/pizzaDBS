@@ -17,7 +17,13 @@ public class login {
 		}
 		// User exists
 		System.out.println(fillers);
-		userActive();
+		String sql = "select Active from customers where username = '"+this.username+"';";
+		commandLine.startSession();
+		String Active = commandLine.executeSession(sql, 1).get(0);
+		if (Active.equals(0)){
+			System.out.println("User is deactivated, please contact admin");
+			return;
+		}
 		new customer(this.username, this.password);
 	}
 	
@@ -62,13 +68,5 @@ public class login {
 
 		return true;
 	}
-		public void userActive() throws ClassNotFoundException{
-			/* * GOTTA DO THIS * */
-			// query database to see if username = this.username and password = this.password 
-			commandLine.startSession();
-				String sql = "update customers set Active = 1 where Username = '"+this.username+"'";
-			commandLine.executeSession(sql, 2);
-			commandLine.endSession();
-	
-		}
+
 }

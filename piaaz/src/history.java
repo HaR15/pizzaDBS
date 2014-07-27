@@ -48,13 +48,13 @@ public class history {
 			float orderTotals = 0;
 			for(int j = 0; j < pizzaOIDs.size(); j++){
 
-				sql = "SELECT pizzaPID FROM pizzaOrder WHERE oid = '" + pizzaOIDs.get(j) +"';";
+				sql = "SELECT pID FROM pizzaOrder WHERE oid = '" + pizzaOIDs.get(j) +"';";
 				String pizzaPID = commandLine.executeSession(sql, 1).get(0);
 
 				sql = "SELECT name FROM product WHERE pid = '" + pizzaPID +"';";
 				String pizzaName = commandLine.executeSession(sql, 1).get(0);
 
-				sql = "SELECT quantity FROM pizzaOrder WHERE oid = '" + pizzaOIDs.get(j) + "';";
+				sql = "SELECT quantity FROM `Order` WHERE oid = '" + pizzaOIDs.get(j) + "';";
 				String pizzaQuantity = commandLine.executeSession(sql, 1).get(0);
 
 				sql = "SELECT price FROM product WHERE pid = '" + pizzaPID + "';";
@@ -90,7 +90,6 @@ public class history {
 			System.out.printf("%2s%20s%10s%10s%15.2f\n", "", "", "", "TOTAL:", orderTotals);
 
 			System.out.printf("%2s%20s%10s%10s%15s\n", "", "", "", "Method of Payment: ", methodOfPayment);
-			System.out.printf("%2s%20s%10s%10s%15d\n", "", "", "", "Delivered by: ", did);
 			System.out.println(fillers2);
 		}
 		commandLine.endSession();

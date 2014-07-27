@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Scanner;
 
 
@@ -7,7 +8,9 @@ public class customer {
 
 	private String username;
 	private String password; 
-	private String name;
+	private Timestamp time;
+	private Timestamp DeactiveTime;
+	private int lock = 0;
 	
 	public customer(String username, String password) throws ClassNotFoundException, SQLException{
 		this.username = username;
@@ -44,8 +47,29 @@ public class customer {
 		String time = commandLine.executeSession(sql, 1).get(0);
 		String balance = commandLine.executeSession(sql1, 1).get(0);
 		commandLine.endSession();
-		System.out.println(time);
-		System.out.println(balance);
-		
+		this.time = Timestamp.valueOf(time);
+		System.out.println();
+		Calendar calendar = Calendar.getInstance();
+	    java.sql.Timestamp currentTime = new java.sql.Timestamp(calendar.getTime().getTime());
+		long diff = currentTime.getTime() - this.time.getTime();
+		long diffMinutes = diff / (60 * 1000) % 60;
+		if (Integer.parseInt(balance) < 0){
+			System.out.println("your account has an outstanding balance");
+			System.out.println("Within 20 minutes your account will be deactivated and only an admin can reactivate your account");
+			System.out.println("add balance in the setting menu right now");
+		    if (lock == 0){
+		    	this.DeactiveTime = new java.sql.Timestamp(calendar.getTime().getTime());
+			    lock = 1;
+		    }
+			diff = currentTime.getTime() - this.DeactiveTime.getTime();
+			diffMinutes = diff / (60 * 1000) % 60;
+			if (diffMinutes > 20){
+        		sql = "UPDATE customers set Active = 0 where Username = '"+this.username+"';";
+        		commandLine.startSession();
+        		commandLine.executeSession(sql, 2);
+        		commandLine.endSession();
+			}
+		}
+
 	}
 }
