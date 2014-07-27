@@ -120,9 +120,9 @@ public class pizza {
 					//topping has been used on the same pizza before in this transaction
 					
 					// Increment the quantities and update the price in order and toppingOrder table
-					sql = "update `order` set quantity = quantity +1, price = quantity*price where tid = '"+tid+"' and pid = '"+pid+"';";
+					sql = "update `order` set quantity = quantity +1 where tid = '"+tid+"' and pid = '"+pid+"';";
 					commandLine.executeSession(sql, 2);
-					sql = "update `toppingOrder` set quantity = quantity +1, price = quantity*price where tid = '"+tid+"' and pizzaOID ='"+pizzaOID+"' and toppingID = '"+pid+"';";
+					sql = "update `toppingOrder` set quantity = quantity +1 where tid = '"+tid+"' and pizzaOID ='"+pizzaOID+"' and toppingID = '"+pid+"';";
 				}
 				else{
 					// topping has been used on another pizza previously in this transaction
