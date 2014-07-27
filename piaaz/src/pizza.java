@@ -55,7 +55,7 @@ public class pizza {
 			String oid = userOids.get(userOids.size()-1);
 			
 			// Insert into pizzaOrder info about his pizza order
-			sql = "insert into `pizzaOrder` (oid, tid,pizzaPID,quantity,price) VALUES ('"+oid+"','"+tid+"','"+pid+"',1,'"+price+"');";
+			sql = "insert into `pizzaOrder` (oid, tid,pID) VALUES ('"+oid+"','"+tid+"','"+pid+"');";
 			commandLine.executeSession(sql, 2);
 			commandLine.endSession();
 			
@@ -113,7 +113,7 @@ public class pizza {
 				// The topping has been used before in this transaction
 				
 				// Check to see if this topping has already been used on the same pizza
-				sql = "select exists(select * from `toppingOrder` where tid = '"+tid+"' and pizzaOID = '"+pizzaOID+"' and toppingID='"+pid+"');";
+				sql = "select exists(select * from `toppingOrder` where tid = '"+tid+"' and pizzaOID = '"+pizzaOID+"' and toppingoID='"+pid+"');";
 				String check2 = commandLine.executeSession(sql, 1).get(0);
 				
 				if(check2.equals("1")){
@@ -122,7 +122,7 @@ public class pizza {
 					// Increment the quantities and update the price in order and toppingOrder table
 					sql = "update `order` set quantity = quantity +1 where tid = '"+tid+"' and pid = '"+pid+"';";
 					commandLine.executeSession(sql, 2);
-					sql = "update `toppingOrder` set quantity = quantity +1 where tid = '"+tid+"' and pizzaOID ='"+pizzaOID+"' and toppingID = '"+pid+"';";
+
 				}
 				else{
 					// topping has been used on another pizza previously in this transaction
@@ -137,7 +137,7 @@ public class pizza {
 					String oid = userOids.get(userOids.size()-1);
 					
 					//Insert this order details in toppingOrder along with oid
-					sql = "insert into `toppingOrder` (oid,tid,pizzaOID,toppingID, quantity,price) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"',1,'"+price+"');";
+					sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pID) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"');";
 				}
 				commandLine.executeSession(sql, 2);
 			}
@@ -154,7 +154,7 @@ public class pizza {
 				String oid = userOids.get(userOids.size()-1);
 				
 				// Insert info about this order in toppingOrder table, including oid
-				sql = "insert into `toppingOrder` (oid,tid,pizzaOID,toppingID, quantity,price) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"',1,'"+price+"');";
+				sql = "insert into `toppingOrder` (oid,tid,pizzaOID,pid) VALUES ('"+oid+"','"+tid+"','"+pizzaOID+"','"+pid+"');";
 				commandLine.executeSession(sql, 2);
 			}
 			//Execute query

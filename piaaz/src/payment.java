@@ -22,50 +22,55 @@ public class payment {
 		commandLine.endSession();
 		String choose = "";
 		choose = input.nextLine();
-		while (choose.equals("1")){
-			choose = "Balance";
-			commandLine.startSession();
-			sql = "select username from transaction where tid = '"+tid+"';";
-			System.out.println(tid);
-			String username = commandLine.executeSession(sql, 1).get(0);
-			sql = "select balance from customers where Username = '"+username+"';";
-			ArrayList<String> Data = commandLine.executeSession(sql, 1);
-			if( Integer.parseInt(Data.get(0)) < total){
-				System.out.println("Balance not enough");
+		while (true){
+			if (choose.equals("1")){
+				choose = "Balance";
+				commandLine.startSession();
+				sql = "select username from transaction where tid = '"+tid+"';";
+				System.out.println(tid);
+				String username = commandLine.executeSession(sql, 1).get(0);
+				sql = "select balance from customers where Username = '"+username+"';";
+				ArrayList<String> Data = commandLine.executeSession(sql, 1);
+				if( Integer.parseInt(Data.get(0)) < total){
+					System.out.println("Balance not enough");
+					break;
+				}
+				else{
+					String currentBalance = Integer.toString(Integer.parseInt(Data.get(0)) - total);
+					sql = "update customers set balance = '"+currentBalance+"' where Username = '"+username+"';";
+					commandLine.executeSession(sql, 2);
+					System.out.println("You have current balance of "+ currentBalance);
+				}
+				commandLine.endSession();
+				choose = input.nextLine();
 				break;
 			}
-			else{
-				String currentBalance = Integer.toString(Integer.parseInt(Data.get(0)) - total);
-				sql = "update customers set balance = '"+currentBalance+"' where Username = '"+username+"';";
-			}
-			commandLine.endSession();
-			choose = input.nextLine();
-		}
-		while (choose.equals("2")){
-			choose = "Credit";
-			commandLine.startSession();
-			sql = "select username from transaction where tid = '"+tid+"';";
-			String username = commandLine.executeSession(sql, 1).get(0);
-			sql = "select creditCardNum from customers where Username = '"+username+"';";
-			String creditCard = commandLine.executeSession(sql, 1).get(0);
-			if (creditCard.equals("0")){
-				System.out.println("enter your credit please");
-				choose = input.nextLine();
-				sql = "update customers set creditCardNum = '"+choose+"' where Username = '"+username+"';";
+			if (choose.equals("2")){
+				choose = "Credit";
 				commandLine.startSession();
-				commandLine.executeSession(sql, 2);
-				commandLine.endSession();
+				sql = "select username from transaction where tid = '"+tid+"';";
+				String username = commandLine.executeSession(sql, 1).get(0);
+				sql = "select creditCardNum from customers where Username = '"+username+"';";
+				String creditCard = commandLine.executeSession(sql, 1).get(0);
+				if (creditCard.equals("0")){
+					System.out.println("enter your credit please");
+					choose = input.nextLine();
+					sql = "update customers set creditCardNum = '"+choose+"' where Username = '"+username+"';";
+					commandLine.startSession();
+					commandLine.executeSession(sql, 2);
+					commandLine.endSession();
+				}
+				break;
 			}
-
-			
-		}
-		if (choose.equals("3")){
-			choose = "Cash";
+			if (choose.equals("3")){
+				choose = "Cash";
+				break;
+			}
 		}
 		sql = "update transaction set methodOfPayment = '"+choose+"' where tid = '"+tid+"';";
 		commandLine.startSession();
 		commandLine.executeSession(sql, 2);
 		commandLine.endSession();
 		new delivery();
-	}
+	}	
 }
