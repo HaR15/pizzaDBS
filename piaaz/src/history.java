@@ -6,16 +6,6 @@ public class history {
 	
 	public history(String username){
 		
-		//String sql = "SELECT tid FROM transactions WHERE username = '"+ this.username + "';";
-		//ArrayList<String> userTids = commandLine.executeSession(sql, 1);
-		// for each tid, 
-			//get date, totalPrice, tid, methodOfPayment, did
-			//get all pizza ids
-			//for each pizza id
-				//get name, quantity, price  
-				//get all toppingIDs
-				//for each toppingID
-					// get the name, price, total
 		Scanner input = new Scanner(System.in);
 		String fillers1 = "----------------------------------------------------------------------";
 		String fillers2 = "======================================================================";
