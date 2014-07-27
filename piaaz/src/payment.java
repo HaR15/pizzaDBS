@@ -31,16 +31,10 @@ public class payment {
 				String username = commandLine.executeSession(sql, 1).get(0);
 				sql = "select balance from customers where Username = '"+username+"';";
 				ArrayList<String> Data = commandLine.executeSession(sql, 1);
-				if( Integer.parseInt(Data.get(0)) < total){
-					System.out.println("Balance not enough");
-					break;
-				}
-				else{
-					String currentBalance = Integer.toString(Integer.parseInt(Data.get(0)) - total);
-					sql = "update customers set balance = '"+currentBalance+"' where Username = '"+username+"';";
-					commandLine.executeSession(sql, 2);
-					System.out.println("You have current balance of "+ currentBalance);
-				}
+				String currentBalance = Integer.toString(Integer.parseInt(Data.get(0)) - total);
+				sql = "update customers set balance = '"+currentBalance+"' where Username = '"+username+"';";
+				commandLine.executeSession(sql, 2);
+				System.out.println("You have current balance of "+ currentBalance);
 				commandLine.endSession();
 				choose = input.nextLine();
 				break;

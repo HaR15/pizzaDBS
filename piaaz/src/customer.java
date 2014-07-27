@@ -20,6 +20,7 @@ public class customer {
 			System.out.println("3, Option");
 			System.out.println("4, Log Out");
 			choose = input.nextLine();
+			CTC();
 	        switch (choose) {
 	            case "1":  new placeOrder(this.username,this.password);
 	                     break;
@@ -34,5 +35,7 @@ public class customer {
 		System.out.println("Have a nice day");
 		main.main(null);
 	}
-
+	public void CTC(){
+		String sql = "select data "
+	}
 }
