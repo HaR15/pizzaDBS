@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Scanner;
 
 
@@ -19,8 +20,9 @@ public class customer {
 			System.out.println("2, Products");
 			System.out.println("3, Option");
 			System.out.println("4, Log Out");
-			choose = input.nextLine();
 			CTC();
+			choose = input.nextLine();
+			
 	        switch (choose) {
 	            case "1":  new placeOrder(this.username,this.password);
 	                     break;
@@ -36,6 +38,14 @@ public class customer {
 		main.main(null);
 	}
 	public void CTC(){
-		String sql = "select data "
+		String sql = "select date from transaction inner join customers where customers.username = '"+this.username+"' order by date desc limit 1;";
+		String sql1 = "select balance from transaction inner join customers where customers.username = '"+this.username+"' order by date desc limit 1;";
+		commandLine.startSession();
+		String time = commandLine.executeSession(sql, 1).get(0);
+		String balance = commandLine.executeSession(sql1, 1).get(0);
+		commandLine.endSession();
+		System.out.println(time);
+		System.out.println(balance);
+		
 	}
 }
