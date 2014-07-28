@@ -65,7 +65,7 @@ public class history {
 				float totals = 0;
 				totals += pizzaTotal;
 
-				sql = "SELECT toppingID FROM toppingOrder WHERE pizzaOID = '" + pizzaOIDs.get(j) + "';";
+				sql = "SELECT pid FROM toppingOrder WHERE pizzaOID = '" + pizzaOIDs.get(j) + "';";
 				ArrayList<String> thisPizzaToppings = commandLine.executeSession(sql, 1);
 
 				for(int k = 0; k < thisPizzaToppings.size(); k++){
@@ -73,8 +73,8 @@ public class history {
 					sql = "SELECT name FROM product WHERE pid = '"+ thisPizzaToppings.get(k) +"';";
 					String toppingName = commandLine.executeSession(sql, 1).get(0);
 
-					sql = "SELECT quantity FROM toppingOrder WHERE toppingID = '" + thisPizzaToppings.get(k) + "';";
-					String toppingQuantity = commandLine.executeSession(sql, 1).get(0);
+					sql = "SELECT * FROM toppingOrder WHERE pid = '" + thisPizzaToppings.get(k) + "';";
+					String toppingQuantity = commandLine.executeSession(sql, 1).size() + "";
 
 					sql = "SELECT price FROM product WHERE pid = '" + thisPizzaToppings.get(k) + "';";
 					String toppingPrice = commandLine.executeSession(sql, 1).get(0);

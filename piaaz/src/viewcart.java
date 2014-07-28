@@ -27,7 +27,6 @@ public class viewCart {
 		commandLine.startSession();
 		// All pizza of this transaction
 		ArrayList<String> total = commandLine.executeSession(sql, 1);
-		System.out.println(transactionOid);
 		String product = "Product";
 		String quantity = "Quantity";
 		String price = "Price";
