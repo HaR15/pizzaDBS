@@ -76,7 +76,7 @@ public class customer {
 			
 		}
 		for (int a=0;a< weekly.size();a++){
-			Timestamp time = Timestamp.valueOf(timed.get(a));
+			Timestamp time = Timestamp.valueOf(timew.get(a));
 			long diff = currentTime.getTime() - time.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if (diffDays >= 7){

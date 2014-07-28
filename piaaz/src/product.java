@@ -1,4 +1,7 @@
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -18,10 +21,55 @@ public class product {
 			if (choose.equals("2")){
 				onSale();
 			}
-			
+			if (choose.equals("3")){
+				bestWorst();
+			}
 
 		}
 		
+	}
+	private void bestWorst() {
+		// TODO Auto-generated method stub
+		String sql = "select pid from `order` order by pid desc;";
+		String sql1 = "select quantity from `order` order by pid desc";
+		commandLine.startSession();
+		ArrayList<String> item = commandLine.executeSession(sql, 1);
+		ArrayList<String> quantity = commandLine.executeSession(sql1, 1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		ArrayList<String> dupItem = item;
+		for (int a=0;a< item.size();a++){
+			if (map.containsKey(item.get(a))){
+				int temp = map.get(item.get(a));
+				map.put(item.get(a), temp+Integer.parseInt(quantity.get(a)));
+			}
+			else{
+				map.put(item.get(a), Integer.parseInt(quantity.get(a)));
+			}
+		}
+		int largest = 0;
+		String largestItem="";
+		for (int a=0;a< item.size();a++){
+			if (map.get(item.get(a)) > largest){
+				largest = map.get(item.get(a));
+				largestItem = item.get(a);
+			}
+		}
+		String smallestItem="";
+		int smallest = largest;
+		for (int a=0;a<dupItem.size();a++){
+			if (map.get(dupItem.get(a)) < smallest){
+				smallest = map.get(dupItem.get(a));
+				smallestItem = item.get(a);
+			}
+		}
+		sql = "select name from product where pid = '"+largestItem+"';";
+		commandLine.startSession();
+		String name = commandLine.executeSession(sql, 1).get(0);
+		sql = "select name from product where pid ='"+smallestItem+"';";
+		String name1 = commandLine.executeSession(sql, 1).get(0);
+		commandLine.endSession();
+		System.out.println("One of the best selling  item is "+name);
+		System.out.println("One of the least selling item is "+name1);
 	}
 	public void info(){
 			System.out.println("Enter the search critia, you can leave it blank");
