@@ -23,7 +23,7 @@ public class customer {
 			System.out.println("2, Products");
 			System.out.println("3, Option");
 			System.out.println("4, Log Out");
-			CTC();
+			//CTC();
 			choose = input.nextLine();
 			
 	        switch (choose) {

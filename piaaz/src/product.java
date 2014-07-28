@@ -23,7 +23,7 @@ public class product {
 	}
 	public void info(){
 			Scanner input = new Scanner(System.in);
-			String choose = "select name from product where ";
+			String choose = "from product where ";
 			String[] data = {"name","category","price","supplier","manufacturer","description"};
 			for (int a=0;a< data.length;a++){
 				System.out.println("Enter the "+data[a]+" of the product");
@@ -38,9 +38,16 @@ public class product {
 			else{
 				choose = choose + ";";
 			}
-			System.out.println(choose);
+			String sql = "select name "+choose;
+			String sql1 = "select price "+choose;
+			String sql2 = "select description "+choose;
 			commandLine.startSession();
-			ArrayList<String> info = commandLine.executeSession(choose, 1);
+			ArrayList<String> info = commandLine.executeSession(sql, 1);
+			ArrayList<String> info1 = commandLine.executeSession(sql1, 1);
+			ArrayList<String> info2 = commandLine.executeSession(sql2, 1);
+			for (int a= 0;a< info.size();a++){
+				System.out.println();
+			}
 			commandLine.endSession();
 	}
 	public void onSale(){
