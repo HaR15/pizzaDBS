@@ -75,7 +75,11 @@ public class payment {
 		commandLine.startSession();
 		commandLine.executeSession(sql, 2);
 		commandLine.endSession();
+<<<<<<< .mine
+		new dispatchTicket(tid);
+=======
 		new customer(username2,password);
 		new delivery();
+>>>>>>> .r34
 	}	
 }
