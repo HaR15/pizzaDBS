@@ -9,6 +9,7 @@ public class product {
 		while (! choose.equals("4")){
 			System.out.println("1, Get info about a product");
 			System.out.println("2, On sale items");
+			System.out.println("3, best/worst sales");
 			System.out.println("4, Back");
 			choose = input.nextLine();
 			if (choose.equals("1")){
@@ -17,6 +18,7 @@ public class product {
 			if (choose.equals("2")){
 				onSale();
 			}
+			
 
 		}
 		

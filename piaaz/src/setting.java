@@ -8,13 +8,14 @@ public class setting {
 		this.username = username;
 		Scanner input = new Scanner(System.in);
 		String choose = "";
-		while (! choose.equals("6")){
+		while (! choose.equals("7")){
 			System.out.println("1, Update");
 			System.out.println("2, Account Balance");
 			System.out.println("3, Delivery time");
 			System.out.println("4, Transaction History");
 			System.out.println("5, Deactivate");
-			System.out.println("6,Back");
+			System.out.println("6, cancell all standing order");
+			System.out.println("7,Back");
 			choose = input.nextLine();
 			options(choose);
 		}
@@ -37,7 +38,10 @@ public class setting {
 			if (choose.equals("1")){
 				new update(this.username);
 			}
-			if (choose.equals("6")){
+			if(choose.equals(6)){
+				String sql = "update transaction set standingOrder = 0 where username ='"+this.username+"';";
+			}
+			if (choose.equals("7")){
 				return;
 			}
 

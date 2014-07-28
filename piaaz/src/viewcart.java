@@ -27,6 +27,7 @@ public class viewCart {
 		commandLine.startSession();
 		// All pizza of this transaction
 		ArrayList<String> total = commandLine.executeSession(sql, 1);
+		System.out.println(transactionOid);
 		String product = "Product";
 		String quantity = "Quantity";
 		String price = "Price";
@@ -93,11 +94,10 @@ public class viewCart {
 			ArrayList<String> datac = commandLine.executeSession(sql2, 1);
 			System.out.println("Asdsad"+total);
 			for (int a =0;a< dataa.size();a++){
-				orderTotals += Integer.parseInt(dataa.get(a));
-				System.out.printf("%2s%20s%10s%10s%15.2f\n", transactionPizzas.size()+a, datab.get(a), datac.get(a), dataa.get(a), orderTotals);
-				System.out.printf("%2s%20s%10s%10s%15.2f\n", "", "", "", "", totals);
-				System.out.println(fillers);
+				orderTotals += (float)Integer.parseInt(datac.get(a))* Integer.parseInt(dataa.get(a));
+				System.out.printf("%2s%20s%10s%10s%15.2f\n", transactionPizzas.size()+a, datab.get(a), datac.get(a), dataa.get(a), (float)Integer.parseInt(datac.get(a))* Integer.parseInt(dataa.get(a)));
 			}
+			System.out.println(fillers);
 			count = transactionPizzas.size()+dataa.size();
 			sql = "select product.name from `order` inner join product where `order`.tid = '"+tid+"' and `order`.pid = product.pid and product.category = 'drink';";
 			sql1 = "select product.price from `order` inner join product where `order`.tid = '"+tid+"' and `order`.pid = product.pid and product.category = 'drink';";
@@ -107,11 +107,10 @@ public class viewCart {
 			datab = commandLine.executeSession(sql, 1);
 			datac = commandLine.executeSession(sql2, 1);
 			for (int a =0;a< dataa.size();a++){
-				orderTotals += Integer.parseInt(dataa.get(a));
-				System.out.printf("%2s%20s%10s%10s%15.2f\n", count +a, datab.get(a), datac.get(a), dataa.get(a), orderTotals);
-				System.out.printf("%2s%20s%10s%10s%15.2f\n", "", "", "", "", totals);
-				System.out.println(fillers);
+				orderTotals += (float)Integer.parseInt(datac.get(a))* Integer.parseInt(dataa.get(a));
+				System.out.printf("%2s%20s%10s%10s%15.2f\n", count +a, datab.get(a), datac.get(a), dataa.get(a), (float)Integer.parseInt(datac.get(a))* Integer.parseInt(dataa.get(a)));
 			}
+			System.out.println(fillers);
 			System.out.printf("%2s%20s%10s%10s%15.2f\n", "", "", "", "TOTAL:", orderTotals);
 		}
 		else{

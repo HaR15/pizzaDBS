@@ -1,9 +1,10 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class payment {
-	public payment(String tid){
+	public payment(String tid, String standingOrder, String username2, String password) throws ClassNotFoundException, SQLException{
 		Scanner input = new Scanner(System.in);
 		System.out.println("Choose your method of payment");
 		System.out.println("1,Balance \n2,Credit \n3,Cash");
@@ -21,7 +22,16 @@ public class payment {
 		commandLine.executeSession(sql, 2);
 		commandLine.endSession();
 		String choose = "";
-		choose = input.nextLine();
+		if (standingOrder.equals("0")){
+			choose = input.nextLine();
+		}
+		else{
+			sql = "select methodofpayment from transaction where tid = '"+tid+"';";
+			commandLine.startSession();
+			choose = commandLine.executeSession(sql, 1).get(0);
+			 
+		}
+		
 		while (true){
 			if (choose.equals("1")){
 				choose = "Balance";
@@ -65,6 +75,7 @@ public class payment {
 		commandLine.startSession();
 		commandLine.executeSession(sql, 2);
 		commandLine.endSession();
+		new customer(username2,password);
 		new delivery();
 	}	
 }
