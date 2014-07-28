@@ -14,6 +14,7 @@ public class admin {
 				System.out.println("2, remove a product");
 				System.out.println("3, add a special");
 				System.out.println("4, remove a special");
+				System.out.println("5, reactive an account");
 				System.out.println("5, leave");
 				choose = input.nextLine();
 				if (choose.equals("1")){
@@ -27,6 +28,9 @@ public class admin {
 				}
 				if (choose.equals("4")){
 					removesp();
+				}
+				if (choose.equals("5")){
+					react();
 				}
 			}
 		}
@@ -86,6 +90,16 @@ public class admin {
 		String sql ="UPDATE product set special = 0 where name = '"+choose+"';"; 
 		commandLine.executeSession(sql, 2);
 		commandLine.endSession();
+	}
+	public void react(){
+		Scanner input= new Scanner(System.in);
+		System.out.println("What's the name of the user?");
+		String choose = input.nextLine();
+		String sql = "update customers set Active = 1 where username = '"+choose+"';";
+		commandLine.startSession();
+		commandLine.executeSession(sql, 2);
+		commandLine.endSession();
+		System.out.println("done");
 	}
 }
 

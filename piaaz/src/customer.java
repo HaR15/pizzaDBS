@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -23,7 +24,12 @@ public class customer {
 			System.out.println("2, Products");
 			System.out.println("3, Option");
 			System.out.println("4, Log Out");
-			//CTC();
+			String sql = "select date from transaction inner join customers where customers.username = '"+this.username+"' order by date desc limit 1;";
+			commandLine.startSession();
+			ArrayList<String> check = commandLine.executeSession(sql, 1);
+			if (check.size() != 0){
+				CTC();
+			}
 			choose = input.nextLine();
 			
 	        switch (choose) {

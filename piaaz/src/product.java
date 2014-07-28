@@ -22,6 +22,7 @@ public class product {
 		
 	}
 	public void info(){
+			System.out.println("Enter the search critia, you can leave it blank");
 			Scanner input = new Scanner(System.in);
 			String choose = "from product where ";
 			String[] data = {"name","category","price","supplier","manufacturer","description"};
@@ -38,16 +39,33 @@ public class product {
 			else{
 				choose = choose + ";";
 			}
-			String sql = "select name "+choose;
-			String sql1 = "select price "+choose;
-			String sql2 = "select description "+choose;
+			String fillers = "======================================================================";
+			String sql;
+			String sql1;
+			String sql2; 
+			System.out.println(choose.length());
+			if (choose.length() <= 20){
+				sql = "select name from product";
+				sql1 = "select price from product";
+				sql2 = "select description from product";
+			}
+			else{
+				sql = "select name "+choose;
+				sql1 = "select price "+choose;
+				sql2 = "select description "+choose;
+	
+			}
 			commandLine.startSession();
 			ArrayList<String> info = commandLine.executeSession(sql, 1);
 			ArrayList<String> info1 = commandLine.executeSession(sql1, 1);
 			ArrayList<String> info2 = commandLine.executeSession(sql2, 1);
+			System.out.printf("%20s%10s%35s\n", "Name","Price","Desription");
+			System.out.println(fillers);
 			for (int a= 0;a< info.size();a++){
-				System.out.println();
+				
+				System.out.printf("%20s%10s%35s\n", info.get(a),info1.get(a),info2.get(a));
 			}
+			System.out.println(fillers);
 			commandLine.endSession();
 	}
 	public void onSale(){
